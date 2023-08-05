@@ -1,2 +1,2 @@
-# repaChess
+# Repa Chess game
  
