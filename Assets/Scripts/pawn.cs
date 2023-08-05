@@ -40,7 +40,7 @@ public class Pawn : Figure
         }
 
         if ((x - 1 >= 0) && (y + 1 < 8) && (null != Landscape.tile_grid[x - 1, y + 1])){
-            if (Landscape.tile_grid[x - 1, y + 1].figureColor != myColor){
+            if (Landscape.tile_grid[x - 1, y + 1].figureColor != myColor && Landscape.tile_grid[x - 1, y + 1].figureType != figureTypeEnum.king){
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y + 1;
@@ -49,7 +49,7 @@ public class Pawn : Figure
         }
 
          if ((x + 1 < 8) && (y + 1 < 8) && (null != Landscape.tile_grid[x + 1, y + 1])){
-            if (Landscape.tile_grid[x + 1, y + 1].figureColor != myColor){
+            if (Landscape.tile_grid[x + 1, y + 1].figureColor != myColor && Landscape.tile_grid[x + 1, y + 1].figureType != figureTypeEnum.king){
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y + 1;
