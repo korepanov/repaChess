@@ -21,7 +21,7 @@ public class Pawn : Figure
         
     }
 
-    public List<int[]> AllowedMoves(){
+    public override List<int[]> AllowedMoves(){
         List<int[]> res = new List<int[]>();
 
         Figure.figureColorEnum myColor;
@@ -32,14 +32,21 @@ public class Pawn : Figure
             myColor = Figure.figureColorEnum.black;
         }
 
-        if ((y + 1 < 8) && (null == Landscape.tile_grid[x, y + 1])){
+        if ((y + 1 < 8) && (null == Landscape.tile_grid[x, y + 1]) && (myColor == Figure.figureColorEnum.white)){
             int[] el = new int[2];
             el[0] = x;
             el[1] = y + 1;
             res.Add(el);
         }
 
-        if ((x - 1 >= 0) && (y + 1 < 8) && (null != Landscape.tile_grid[x - 1, y + 1])){
+         if ((y - 1 >= 0) && (null == Landscape.tile_grid[x, y - 1]) && (myColor == Figure.figureColorEnum.black)){
+            int[] el = new int[2];
+            el[0] = x;
+            el[1] = y - 1;
+            res.Add(el);
+        }
+
+        if ((x - 1 >= 0) && (y + 1 < 8) && (null != Landscape.tile_grid[x - 1, y + 1]) && (myColor == Figure.figureColorEnum.white)){
             if (Landscape.tile_grid[x - 1, y + 1].figureColor != myColor && Landscape.tile_grid[x - 1, y + 1].figureType != figureTypeEnum.king){
                 int[] el = new int[2];
                 el[0] = x - 1;
@@ -48,11 +55,29 @@ public class Pawn : Figure
             }
         }
 
-         if ((x + 1 < 8) && (y + 1 < 8) && (null != Landscape.tile_grid[x + 1, y + 1])){
+         if ((x + 1 < 8) && (y + 1 < 8) && (null != Landscape.tile_grid[x + 1, y + 1]) && (myColor == Figure.figureColorEnum.white)){
             if (Landscape.tile_grid[x + 1, y + 1].figureColor != myColor && Landscape.tile_grid[x + 1, y + 1].figureType != figureTypeEnum.king){
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y + 1;
+                res.Add(el);
+            }
+        }
+
+         if ((x - 1 >= 0) && (y - 1 >= 0) && (null != Landscape.tile_grid[x - 1, y - 1]) && (myColor == Figure.figureColorEnum.black)){
+            if (Landscape.tile_grid[x - 1, y - 1].figureColor != myColor && Landscape.tile_grid[x - 1, y - 1].figureType != figureTypeEnum.king){
+                int[] el = new int[2];
+                el[0] = x - 1;
+                el[1] = y - 1;
+                res.Add(el);
+            }
+        }
+
+         if ((x + 1 < 8) && (y - 1 >= 0) && (null != Landscape.tile_grid[x + 1, y - 1]) && (myColor == Figure.figureColorEnum.black)){
+            if (Landscape.tile_grid[x + 1, y - 1].figureColor != myColor && Landscape.tile_grid[x + 1, y - 1].figureType != figureTypeEnum.king){
+                int[] el = new int[2];
+                el[0] = x + 1;
+                el[1] = y - 1;
                 res.Add(el);
             }
         }

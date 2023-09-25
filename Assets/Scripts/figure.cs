@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Figure
+
+public abstract class Figure
 {
     public int id; 
     public GameObject figurePicture;
@@ -34,7 +35,9 @@ public class Figure
         this.figurePicture = figurePicture; 
         this.x = x;
         this.y = y;  
-    }
+    } 
+
+    public abstract List<int[]> AllowedMoves();
 
     public virtual void Move(int x_new, int y_new){
         if ((null != Landscape.tile_grid[x, y]) && (x_new >= 0) && (x_new < 8) && (y_new >=0) && (y_new < 8)){

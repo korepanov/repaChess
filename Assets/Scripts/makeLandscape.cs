@@ -49,11 +49,11 @@ public class Landscape : MonoBehaviour
                 selected_x = x;
                 selected_y = y;
             }
-
-            if (!humanTurn){
-                computer.Move();
-            }
             
+        }
+
+        if (!humanTurn && !Input.GetMouseButtonDown(0)){
+            computer.Move();
         }
 
     }

@@ -21,7 +21,7 @@ public class King : Figure
         
     }
 
-     public List<int[]> AllowedMoves(){
+     public override List<int[]> AllowedMoves(){
         List<int[]> res = new List<int[]>();
 
         Figure.figureColorEnum myColor;
@@ -32,8 +32,13 @@ public class King : Figure
             myColor = Figure.figureColorEnum.black;
         }
 
+        int x_new;
+        int y_new; 
+
         if (y + 1 < 8){
-            if (!((null != Landscape.tile_grid[x, y + 1]) && (myColor == Landscape.tile_grid[x, y + 1].figureColor))){
+            x_new = x;
+            y_new = y + 1;
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x;
                 el[1] = y + 1;
@@ -42,7 +47,9 @@ public class King : Figure
         }
 
         if ((x - 1 >= 0) && (y + 1 < 8)){
-            if (!((null != Landscape.tile_grid[x - 1, y + 1]) && (myColor == Landscape.tile_grid[x - 1, y + 1].figureColor))){
+            x_new = x - 1;
+            y_new = y + 1;
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y + 1;
@@ -51,7 +58,9 @@ public class King : Figure
         }
 
          if ((x + 1 < 8) && (y + 1 < 8)){
-            if (!((null != Landscape.tile_grid[x + 1, y + 1]) && (myColor == Landscape.tile_grid[x + 1, y + 1].figureColor))){
+            x_new = x + 1;
+            y_new = y + 1;
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y + 1;
@@ -60,7 +69,9 @@ public class King : Figure
         }
 
         if (x - 1 >= 0){
-            if (!((null != Landscape.tile_grid[x - 1, y]) && (myColor == Landscape.tile_grid[x - 1, y].figureColor))){
+            x_new = x - 1;
+            y_new = y;
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y;
@@ -69,7 +80,10 @@ public class King : Figure
         }
 
         if (x + 1 < 8){
-            if (!((null != Landscape.tile_grid[x + 1, y]) && (myColor == Landscape.tile_grid[x + 1, y].figureColor))){
+            x_new = x + 1;
+            y_new = y;
+
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y;
@@ -78,7 +92,10 @@ public class King : Figure
         }
 
         if (y - 1 >= 0){
-            if (!((null != Landscape.tile_grid[x, y - 1]) && (myColor == Landscape.tile_grid[x, y - 1].figureColor))){
+            x_new = x;
+            y_new = y - 1;
+
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x;
                 el[1] = y - 1;
@@ -87,7 +104,9 @@ public class King : Figure
         }
 
         if ((x - 1 >= 0) && (y - 1 >= 0)){
-            if (!((null != Landscape.tile_grid[x - 1, y - 1]) && (myColor == Landscape.tile_grid[x - 1, y - 1].figureColor))){
+            x_new = x - 1;
+            y_new = y - 1;
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y - 1;
@@ -96,7 +115,9 @@ public class King : Figure
         }
 
          if ((x + 1 < 8) && (y - 1 >= 0)){
-            if (!((null != Landscape.tile_grid[x + 1, y - 1]) && (myColor == Landscape.tile_grid[x + 1, y - 1].figureColor))){
+            x_new = x + 1;
+            y_new = y - 1;
+            if (null == Landscape.tile_grid[x_new, y_new] || (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType != figureTypeEnum.king)){
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y - 1;

@@ -16,7 +16,37 @@ public class ai
         
     }
 
+    private int RandomMove(){
+        var rand = new System.Random();
+
+        List<Figure> figs = new List<Figure>(); 
+
+        foreach (Figure fig in Landscape.tile_grid){
+            if ((null != fig) && (fig.figureColor == Figure.figureColorEnum.black)){
+                figs.Add(fig); 
+            }
+        }
+
+        
+        int figNum = rand.Next(figs.Count);
+        
+        var moves = figs[figNum].AllowedMoves();
+
+        while (0 == moves.Count){
+            figNum = rand.Next(figs.Count);
+            moves = figs[figNum].AllowedMoves();
+        } 
+
+        var movNum = rand.Next(moves.Count); 
+        
+        figs[figNum].Move(moves[movNum][0], moves[movNum][1]);
+        
+        return 0;  
+    }
+
     public void Move(){
+        
+        RandomMove();
         Landscape.humanTurn = true;
     }
 }

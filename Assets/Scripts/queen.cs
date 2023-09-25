@@ -21,7 +21,7 @@ public class Queen: Figure
         
     }
 
-    public List<int[]> AllowedMoves(){
+    public override List<int[]> AllowedMoves(){
         List<int[]> res = new List<int[]>();
 
         for (int x_new = 0; x_new < 8; x_new++){
