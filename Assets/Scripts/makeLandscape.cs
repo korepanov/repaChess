@@ -57,7 +57,39 @@ public class Landscape : MonoBehaviour
         }
 
     }
- 
+
+
+    public static Figure[,] CopyBoard(Figure[,] tile_grid){
+        Figure[,] new_grid = new Figure[8,8];
+
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if (null != tile_grid[i, j]){
+                    if (Figure.figureTypeEnum.pawn == tile_grid[i, j].figureType){
+                        new_grid[i, j] = new Pawn(tile_grid[i, j].id, tile_grid[i, j].figureColor, tile_grid[i, j].figurePicture, tile_grid[i, j].x, tile_grid[i, j].y); 
+                    }
+                    if (Figure.figureTypeEnum.king == tile_grid[i, j].figureType){
+                        new_grid[i, j] = new King(tile_grid[i, j].id, tile_grid[i, j].figureColor, tile_grid[i, j].figurePicture, tile_grid[i, j].x, tile_grid[i, j].y); 
+                    }
+                    if (Figure.figureTypeEnum.queen == tile_grid[i, j].figureType){
+                        new_grid[i, j] = new Queen(tile_grid[i, j].id, tile_grid[i, j].figureColor, tile_grid[i, j].figurePicture, tile_grid[i, j].x, tile_grid[i, j].y); 
+                    }
+                    if (Figure.figureTypeEnum.rook == tile_grid[i, j].figureType){
+                        new_grid[i, j] = new Rook(tile_grid[i, j].id, tile_grid[i, j].figureColor, tile_grid[i, j].figurePicture, tile_grid[i, j].x, tile_grid[i, j].y); 
+                    }
+                    if (Figure.figureTypeEnum.knight == tile_grid[i, j].figureType){
+                        new_grid[i, j] = new Knight(tile_grid[i, j].id, tile_grid[i, j].figureColor, tile_grid[i, j].figurePicture, tile_grid[i, j].x, tile_grid[i, j].y); 
+                    }
+                    if (Figure.figureTypeEnum.bishop == tile_grid[i, j].figureType){
+                        new_grid[i, j] = new Bishop(tile_grid[i, j].id, tile_grid[i, j].figureColor, tile_grid[i, j].figurePicture, tile_grid[i, j].x, tile_grid[i, j].y); 
+                    }
+                }
+            }
+        }
+
+        return new_grid; 
+    }
+
     void CreateTileset()
     {
         white_square = Instantiate(GameObject.Find("white_square"));

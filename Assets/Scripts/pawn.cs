@@ -22,15 +22,9 @@ public class Pawn : Figure
     }
 
     public override List<int[]> AllowedMoves(){
+        Figure.figureColorEnum myColor = figureColor;
+
         List<int[]> res = new List<int[]>();
-
-        Figure.figureColorEnum myColor;
-
-        if (Landscape.humanTurn){
-            myColor = Figure.figureColorEnum.white;
-        }else{
-            myColor = Figure.figureColorEnum.black;
-        }
 
         if ((y + 1 < 8) && (null == Landscape.tile_grid[x, y + 1]) && (myColor == Figure.figureColorEnum.white)){
             int[] el = new int[2];

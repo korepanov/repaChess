@@ -22,6 +22,7 @@ public class Queen: Figure
     }
 
     public override List<int[]> AllowedMoves(){
+        Figure.figureColorEnum myColor = figureColor;
         List<int[]> res = new List<int[]>();
 
         for (int x_new = 0; x_new < 8; x_new++){

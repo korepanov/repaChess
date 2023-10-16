@@ -16,7 +16,47 @@ public class ai
         
     }
 
-    private int RandomMove(){
+    public static int Evaluate(Figure[,] board, Figure.figureColorEnum color){
+        int white_weight = 0;
+        int black_weight = 0;
+        int weight = 0;  
+
+        foreach(Figure fig in board){
+            if (null != fig){
+                if (Figure.figureTypeEnum.pawn == fig.figureType){
+                    weight = 1;
+                }
+                if (Figure.figureTypeEnum.knight == fig.figureType){
+                    weight = 3;
+                }
+                if (Figure.figureTypeEnum.bishop == fig.figureType){
+                    weight = 3;
+                }
+                if (Figure.figureTypeEnum.rook == fig.figureType){
+                    weight = 5;
+                }
+                if (Figure.figureTypeEnum.queen == fig.figureType){
+                    weight = 9;
+                }
+                if (Figure.figureTypeEnum.king == fig.figureType){
+                    weight = 1000;
+                }
+                if (Figure.figureColorEnum.white == fig.figureColor){
+                    white_weight += weight;
+                }else{
+                    black_weight += weight;
+                }
+            }
+        }
+
+        if (Figure.figureColorEnum.white == color){
+            return white_weight - black_weight;
+        }
+        return black_weight - white_weight; 
+    }
+
+
+    public static int RandomMove(Figure.figureColorEnum myColor){
         var rand = new System.Random();
 
         List<Figure> figs = new List<Figure>(); 
@@ -44,9 +84,8 @@ public class ai
         return 0;  
     }
 
-    public void Move(){
-        
-        RandomMove();
+    public void Move(){   
+        negaMax.MakeBestMove(Landscape.tile_grid, 3, Figure.figureColorEnum.black); 
         Landscape.humanTurn = true;
     }
 }

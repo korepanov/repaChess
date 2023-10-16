@@ -22,15 +22,9 @@ public class Knight : Figure
     }
 
     public override List<int[]> AllowedMoves(){
+        Figure.figureColorEnum myColor = figureColor;
+
         List<int[]> res = new List<int[]>();
-
-        Figure.figureColorEnum myColor;
-
-        if (Landscape.humanTurn){
-            myColor = Figure.figureColorEnum.white;
-        }else{
-            myColor = Figure.figureColorEnum.black;
-        }
 
         int x_new;
         int y_new; 

@@ -54,17 +54,21 @@ public abstract class Figure
         }
     }
 
+    public void ShadowMove(int x_new, int y_new){
+        if ((null != Landscape.tile_grid[x, y]) && (x_new >= 0) && (x_new < 8) && (y_new >=0) && (y_new < 8)){
+            Landscape.tile_grid[x_new, y_new] = Landscape.tile_grid[x, y];
+            Landscape.tile_grid[x, y] = null; 
+            x = x_new;
+            y = y_new; 
+        }
+    }
+
     protected bool inLine(int x_new, int y_new){
+        
+        Figure.figureColorEnum myColor = figureColor;
+
         if ((x == x_new) && (y == y_new)){
             return false;
-        }
-
-         Figure.figureColorEnum myColor;
-
-        if (Landscape.humanTurn){
-            myColor = Figure.figureColorEnum.white;
-        }else{
-            myColor = Figure.figureColorEnum.black;
         }
 
         int x_temp = x;
@@ -112,17 +116,11 @@ public abstract class Figure
         return false; 
     }
     protected bool inDiag(int x_new, int y_new){
+
+        Figure.figureColorEnum myColor = figureColor;
         
         if ((x == x_new) && (y == y_new)){
             return false;
-        }
-
-        Figure.figureColorEnum myColor;
-
-        if (Landscape.humanTurn){
-            myColor = Figure.figureColorEnum.white;
-        }else{
-            myColor = Figure.figureColorEnum.black;
         }
 
         int x_temp = x;
