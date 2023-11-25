@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting.FullSerializer;
 
- 
+
 
 public class Landscape : MonoBehaviour
 {
@@ -22,18 +23,16 @@ public class Landscape : MonoBehaviour
     int selected_y = -1; 
 
     void Start()
-    {   
+    {    
         CreateTileset();
         CreateTileGroups();
         GenerateMap();
         SetCamera(); 
         InitBoard(); 
     }
-
     
-
     void Update(){
-
+        
         if (Input.GetMouseButtonDown(0)){
             Vector3 pos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * (-1)));
             pos.x /= scale;
@@ -54,8 +53,9 @@ public class Landscape : MonoBehaviour
 
         if (!humanTurn && !Input.GetMouseButtonDown(0)){
             computer.Move();
+            Landscape.debugBoard(); 
         }
-
+        
     }
 
 
@@ -228,7 +228,58 @@ public class Landscape : MonoBehaviour
             CreateTile(x, tileset[x].x, tileset[x].y); 
         }
     }
-    
+    public static void debugBoard(){
+        string s; 
+        s = "";
+
+        for (int j = 0; j < 8; j++){
+            for (int i = 0; i < 8; i++){
+                if (tile_grid[i, j] != null){
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.pawn)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.white)){
+                        s = s + "WP\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.pawn)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.black)){
+                        s = s + "BP\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.king)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.white)){
+                        s = s + "WK\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.king)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.black)){
+                        s = s + "BK\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.queen)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.white)){
+                        s = s + "WQ\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.queen)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.black)){
+                        s = s + "BQ\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.bishop)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.white)){
+                        s = s + "WB\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.bishop)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.black)){
+                        s = s + "BB\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.knight)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.white)){
+                        s = s + "WKn\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.knight)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.black)){
+                        s = s + "BKn\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.rook)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.white)){
+                        s = s + "WR\t";
+                    }
+                    if ((tile_grid[i, j].figureType == Figure.figureTypeEnum.rook)&&(tile_grid[i, j].figureColor == Figure.figureColorEnum.black)){
+                        s = s + "BR\t";
+                    }
+                }else{
+                    s += "*\t";
+                }
+            }
+            s += "\n";
+        }
+
+        Debug.Log(s);
+    }
     public static void CreateTile(int tile_id, int x, int y)
     {
         GameObject tile_prefab;

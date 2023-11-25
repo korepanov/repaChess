@@ -85,7 +85,7 @@ public class ai
     }
 
     public void Move(){   
-        negaMax.MakeBestMove(Landscape.tile_grid, 3, Figure.figureColorEnum.black); 
+        NegaMax.MakeBestMove(3, Figure.figureColorEnum.black); 
         Landscape.humanTurn = true;
     }
 }

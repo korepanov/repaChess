@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public abstract class Figure
@@ -44,18 +48,24 @@ public abstract class Figure
             if (null != Landscape.tile_grid[x_new, y_new]){
                 Landscape.Destroy(GameObject.Find(Landscape.tile_grid[x_new, y_new].id.ToString())); 
             }
-            Landscape.CreateTile(Landscape.tile_grid[x,y].id, x_new, y_new); 
+            var id = Landscape.tile_grid[x,y].id;
             Landscape.Destroy(GameObject.Find(Landscape.tile_grid[x, y].id.ToString())); 
+            Landscape.CreateTile(id, x_new, y_new); 
+            
             Landscape.tile_grid[x_new, y_new] = Landscape.tile_grid[x, y];
             Landscape.tile_grid[x, y] = null; 
+            Landscape.tile_grid[x_new, y_new].x = x_new;
+            Landscape.tile_grid[x_new, y_new].y = y_new;
+            
             x = x_new;
             y = y_new; 
+            
             Landscape.humanTurn = !Landscape.humanTurn;
         }
     }
 
     public void ShadowMove(int x_new, int y_new){
-        if ((null != Landscape.tile_grid[x, y]) && (x_new >= 0) && (x_new < 8) && (y_new >=0) && (y_new < 8)){
+        if ((null != Landscape.tile_grid[x, y]) && (x_new >= 0) && (x_new < 8) && (y_new >=0) && (y_new < 8)){   
             Landscape.tile_grid[x_new, y_new] = Landscape.tile_grid[x, y];
             Landscape.tile_grid[x, y] = null; 
             x = x_new;
@@ -202,4 +212,5 @@ public abstract class Figure
     {
         
     }
+
 }
