@@ -21,9 +21,24 @@ public class Queen: Figure
         
     }
 
+    public override bool IsShah()
+    {
+
+        for (int x_new = 0; x_new < 8; x_new++){
+            for (int y_new = 0; y_new < 8; y_new++){
+                if (KingInLine(x_new, y_new) || KingInDiag(x_new, y_new)){
+                    return true; 
+                }
+
+            }
+        }
+
+        return false;
+    }
     public override List<int[]> AllowedMoves(){
         Figure.figureColorEnum myColor = figureColor;
         List<int[]> res = new List<int[]>();
+        var oldBoard = Landscape.CopyBoard(Landscape.tile_grid);
 
         for (int x_new = 0; x_new < 8; x_new++){
             for (int y_new = 0; y_new < 8; y_new++){
@@ -31,7 +46,17 @@ public class Queen: Figure
                     int[] el = new int[2];
                     el[0] = x_new;
                     el[1] = y_new; 
-                    res.Add(el);
+                    
+                    int old_x = x;
+                    int old_y = y;
+                    ShadowMove(el[0], el[1]); 
+                    if (!Landscape.IsShah(myColor)){
+                        res.Add(el);
+                    }
+                    
+                    x = old_x;
+                    y = old_y; 
+                    Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
                 }
 
             }

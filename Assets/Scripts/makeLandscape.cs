@@ -44,6 +44,7 @@ public class Landscape : MonoBehaviour
                 tile_grid[selected_x, selected_y].Move(x, y);
                 selected_x = -1;
                 selected_y = -1; 
+                CheckMate(); 
             } else if ((x >= 0) && (y >= 0) && (x < 8) && (y < 8) && (null != tile_grid[x, y])){
                 selected_x = x;
                 selected_y = y;
@@ -53,12 +54,73 @@ public class Landscape : MonoBehaviour
 
         if (!humanTurn && !Input.GetMouseButtonDown(0)){
             computer.Move();
-            Landscape.debugBoard(); 
+            CheckMate(); 
         }
-        
     }
 
+    private void CheckMate(){
+        if (IsMate(Figure.figureColorEnum.white)){
+            Debug.Log("Мат белым!"); 
+        }
 
+        if (IsMate(Figure.figureColorEnum.black)){
+            Debug.Log("Мат черным!"); 
+        }
+    }
+    private bool IsMate(Figure.figureColorEnum forColor){
+        
+        if (IsShah(forColor)){
+            var oldBoard = CopyBoard(Landscape.tile_grid);
+            for (int i = 0; i < 8; i++){
+                for (int j = 0; j < 8; j++){
+                    if ((tile_grid[i,j] != null) && (tile_grid[i,j].figureColor == forColor)){
+                        var moves = tile_grid[i, j].AllowedMoves();
+
+                        foreach (var move in moves){
+                            int old_x = tile_grid[i, j].x;
+                            int old_y = tile_grid[i, j].y;
+
+                            tile_grid[i, j].ShadowMove(move[0], move[1]);
+                            bool shahNow = IsShah(forColor); 
+                        
+                            tile_grid = CopyBoard(oldBoard);
+                            tile_grid[i, j].x = old_x;
+                            tile_grid[i, j].y = old_y;
+
+                            if (!shahNow){
+                                return false; 
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }else{
+            return false; 
+        }
+        return true; 
+    }
+    public static bool IsShah(Figure.figureColorEnum forColor){
+        Figure.figureColorEnum myColor; 
+
+        if (forColor == Figure.figureColorEnum.white){
+            myColor = Figure.figureColorEnum.black;
+        }else{
+            myColor = Figure.figureColorEnum.white;
+        }
+
+        for (int i = 0; i < 8; i++){
+            for (int j = 0; j < 8; j++){
+                if ((tile_grid[i,j] != null) && (tile_grid[i,j].figureColor == myColor)){
+                    if (tile_grid[i, j].IsShah()){
+                        return true;
+                    }
+                } 
+            }
+        }
+
+        return false; 
+    }
     public static Figure[,] CopyBoard(Figure[,] tile_grid){
         Figure[,] new_grid = new Figure[8,8];
 

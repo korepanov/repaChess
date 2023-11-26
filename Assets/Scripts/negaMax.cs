@@ -21,15 +21,19 @@ public class NegaMax : MonoBehaviour
             }
         }
         
-        var num = random.Next(0, figs.Count);
+        var num = 0;
         Figure bestFigLocal = figs[num]; 
         var movesForFig = figs[num].AllowedMoves();
-        while (movesForFig.Count == 0){
-            num = random.Next(0, figs.Count);
+        while ((movesForFig.Count == 0)&&(num<figs.Count)){
             bestFigLocal = figs[num]; 
             movesForFig = figs[num].AllowedMoves();
+            num++;
         }
        
+        if (num == figs.Count){
+            return ai.Evaluate(Landscape.tile_grid, color);
+        }
+
         int[] bestMoveLocal = movesForFig[random.Next(0, movesForFig.Count)];
 
         Figure.figureColorEnum opColor; 
@@ -56,7 +60,6 @@ public class NegaMax : MonoBehaviour
                 int old_y = fig.y; 
 
                 fig.ShadowMove(move[0], move[1]);
-                Landscape.debugBoard(); 
                 
                 int tmp = - NegaMaxBestMove(depth - 1, opColor);
                 
@@ -80,7 +83,6 @@ public class NegaMax : MonoBehaviour
    
     public static void MakeBestMove(int depth, Figure.figureColorEnum color){
         NegaMaxBestMove(depth, color); 
-        Debug.Log(bestFig.x.ToString() + "; " + bestFig.y.ToString() + " -> " + bestMove[0].ToString() + "; " + bestMove[1].ToString());
         bestFig.Move(bestMove[0], bestMove[1]); 
     }
 

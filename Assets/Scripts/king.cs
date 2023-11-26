@@ -21,10 +21,15 @@ public class King : Figure
         
     }
 
-     public override List<int[]> AllowedMoves(){
+    public override bool IsShah()
+    {
+        return false; 
+    }
+    public override List<int[]> AllowedMoves(){
         Figure.figureColorEnum myColor = figureColor;
 
         List<int[]> res = new List<int[]>();
+        var oldBoard = Landscape.CopyBoard(Landscape.tile_grid);
 
         int x_new;
         int y_new; 
@@ -36,7 +41,17 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x;
                 el[1] = y + 1;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                x = old_x;
+                y = old_y;
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -47,7 +62,19 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y + 1;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y; 
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -58,7 +85,19 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y + 1;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y; 
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -69,7 +108,18 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y;
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -81,7 +131,19 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y; 
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -93,7 +155,19 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x;
                 el[1] = y - 1;
-                res.Add(el);
+                
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y; 
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -104,7 +178,19 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x - 1;
                 el[1] = y - 1;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y;
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
 
@@ -115,7 +201,19 @@ public class King : Figure
                 int[] el = new int[2];
                 el[0] = x + 1;
                 el[1] = y - 1;
-                res.Add(el);
+
+                int old_x = x;
+                int old_y = y;
+
+                ShadowMove(el[0], el[1]); 
+                if (!Landscape.IsShah(myColor)){
+                    res.Add(el);
+                }
+                
+                x = old_x;
+                y = old_y; 
+
+                Landscape.tile_grid = Landscape.CopyBoard(oldBoard);
             }
         }
         

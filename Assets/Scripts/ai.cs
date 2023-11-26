@@ -41,6 +41,10 @@ public class ai
                 if (Figure.figureTypeEnum.king == fig.figureType){
                     weight = 1000;
                 }
+                if ((Figure.figureTypeEnum.king == fig.figureType) && Landscape.IsShah(color)){
+                    weight = 0; 
+                }
+
                 if (Figure.figureColorEnum.white == fig.figureColor){
                     white_weight += weight;
                 }else{
