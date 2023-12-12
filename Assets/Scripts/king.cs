@@ -23,6 +23,77 @@ public class King : Figure
 
     public override bool IsShah()
     {
+        Figure.figureColorEnum myColor = figureColor;
+
+        int x_new;
+        int y_new; 
+
+        if (y + 1 < 8){
+            x_new = x;
+            y_new = y + 1;
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+                return true;
+            }
+        }
+
+        if ((x - 1 >= 0) && (y + 1 < 8)){
+            x_new = x - 1;
+            y_new = y + 1;
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+                return true; 
+            }
+        }
+
+         if ((x + 1 < 8) && (y + 1 < 8)){
+            x_new = x + 1;
+            y_new = y + 1;
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+               return true;
+            }
+        }
+
+        if (x - 1 >= 0){
+            x_new = x - 1;
+            y_new = y;
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+                return true;
+            }
+        }
+
+        if (x + 1 < 8){
+            x_new = x + 1;
+            y_new = y;
+
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+               return true;
+            }
+        }
+
+        if (y - 1 >= 0){
+            x_new = x;
+            y_new = y - 1;
+
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+                return true;
+            }
+        }
+
+        if ((x - 1 >= 0) && (y - 1 >= 0)){
+            x_new = x - 1;
+            y_new = y - 1;
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+                return true;
+            }
+        }
+
+         if ((x + 1 < 8) && (y - 1 >= 0)){
+            x_new = x + 1;
+            y_new = y - 1;
+            if (null != Landscape.tile_grid[x_new, y_new] && (myColor != Landscape.tile_grid[x_new, y_new].figureColor && Landscape.tile_grid[x_new, y_new].figureType == figureTypeEnum.king)){
+               return true;
+            }
+        }
+        
         return false; 
     }
     public override List<int[]> AllowedMoves(){

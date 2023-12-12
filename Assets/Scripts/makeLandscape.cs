@@ -24,11 +24,13 @@ public class Landscape : MonoBehaviour
 
     void Start()
     {    
+
         CreateTileset();
         CreateTileGroups();
         GenerateMap();
         SetCamera(); 
         InitBoard(); 
+
     }
     
     void Update(){
@@ -50,6 +52,11 @@ public class Landscape : MonoBehaviour
                 selected_y = y;
             }
             
+        }
+
+        if (Input.GetMouseButtonDown(1)){
+            Vector3 pos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * (-1)));
+            Panel.SetPos(pos.x, pos.y);
         }
 
         if (!humanTurn && !Input.GetMouseButtonDown(0)){
