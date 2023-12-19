@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class Panel : MonoBehaviour
 {
+    public static bool PanelEnabled = false;
     private static float x = 0;
     private static float y = 0;
     public GameObject PanelUI;
+
     // Start is called before the first frame update
     void Start()
     {
         PanelUI.transform.localPosition = new Vector3(x, y, 0);
-        PanelUI.SetActive(false);
+        var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
+        getCanvasGroup.alpha = 0;
     }
 
     // Update is called once per frame
@@ -20,16 +22,19 @@ public class Panel : MonoBehaviour
         x = x_new;
         y = y_new; 
     }
-   
+    
     void Update()
     {
        PanelUI.transform.localPosition = new Vector3(x, y, 0);
 
         if (Input.GetMouseButtonDown(0)){
-            PanelUI.SetActive(false);
+            var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
+            getCanvasGroup.alpha = 0;
         }
          if (Input.GetMouseButtonDown(1)){
-            PanelUI.SetActive(true);
+            var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
+            getCanvasGroup.alpha = 1;
+            PanelEnabled = true;
         }
     }
 }
