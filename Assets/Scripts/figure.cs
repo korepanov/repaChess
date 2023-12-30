@@ -45,6 +45,10 @@ public abstract class Figure
     public abstract bool IsShah();
 
     public virtual void Move(int x_new, int y_new){
+        
+        Landscape.Destroy(GameObject.Find("-2")); // destroy old highlights
+        Landscape.Destroy(GameObject.Find("-1"));
+
         if ((null != Landscape.tile_grid[x, y]) && (x_new >= 0) && (x_new < 8) && (y_new >=0) && (y_new < 8)){
             if (null != Landscape.tile_grid[x_new, y_new]){
                 Landscape.Destroy(GameObject.Find(Landscape.tile_grid[x_new, y_new].id.ToString())); 
@@ -58,6 +62,10 @@ public abstract class Figure
             Landscape.tile_grid[x_new, y_new].x = x_new;
             Landscape.tile_grid[x_new, y_new].y = y_new;
             
+
+            Landscape.CreateTile(-2, x, y); // highlight 
+            Landscape.CreateTile(-1, x_new, y_new); 
+
             x = x_new;
             y = y_new; 
             

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting.FullSerializer;
+using Unity.VisualScripting;
 
 
 
@@ -14,6 +15,7 @@ public class Landscape : MonoBehaviour
     Dictionary<int, GameObject> tile_groups;
     public static GameObject black_square;
     public static GameObject white_square;
+    public static GameObject highlight;
     public static float scale = 1.28f;
     private ai computer = new ai();
     public static Figure[,] tile_grid = new Figure[8,8];
@@ -162,6 +164,8 @@ public class Landscape : MonoBehaviour
     {
         white_square = Instantiate(GameObject.Find("white_square"));
         black_square = Instantiate(GameObject.Find("black_square"));
+        highlight = Instantiate(GameObject.Find("highlight"));
+        
         tileset = new Dictionary<int, Figure>();
        
         for (int x = 0; x < 8; x++){
@@ -296,6 +300,29 @@ public class Landscape : MonoBehaviour
             CreateTile(x, tileset[x].x, tileset[x].y); 
         }
     }
+
+    public void newGame(){
+        if (Panel.PanelEnabled) {
+            Destroy(GameObject.Find("-2"));
+            Destroy(GameObject.Find("-1"));
+
+            for (int i = 2; i < 34; i++){
+                Destroy(GameObject.Find(i.ToString()));
+            }
+
+            for (int i = 0; i < 8; i++){
+                for (int j = 0; j < 8; j++){
+                    tile_grid[i, j] = null;
+                }
+            }
+
+            tileset = null; 
+
+            CreateTileset();
+            InitBoard();
+            Panel.PanelEnabled = false; 
+        }
+    }
     public static void debugBoard(){
         string s; 
         s = "";
@@ -353,7 +380,9 @@ public class Landscape : MonoBehaviour
         GameObject tile_prefab;
         GameObject tile; 
         
-        if (0 == tile_id){
+        if ((-2 == tile_id) || (-1 == tile_id)){
+            tile_prefab = highlight; 
+        }else if (0 == tile_id){
             tile_prefab = black_square;
         }else if (1 == tile_id){
             tile_prefab = white_square;
