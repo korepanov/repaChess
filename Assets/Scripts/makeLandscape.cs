@@ -316,6 +316,14 @@ public class Landscape : MonoBehaviour
         }
     }
 
+    public void newNegaMaxGame(){
+        ai.AIType = ai.AITypes.NegaMax;
+        newGame();
+    }
+    public void newRandGame(){
+        ai.AIType = ai.AITypes.Rand;
+        newGame();
+    }
     public void newGame(){
         if (Panel.PanelEnabled) {
             Destroy(GameObject.Find("-2"));
@@ -325,15 +333,12 @@ public class Landscape : MonoBehaviour
                 Destroy(GameObject.Find(i.ToString()));
             }
 
-            for (int i = 0; i < 8; i++){
-                for (int j = 0; j < 8; j++){
-                    tile_grid[i, j] = null;
-                }
-            }
-
+            tile_grid = new Figure[8,8];
+            
             tileset = null; 
 
             CreateTileset();
+            CreateTileGroups();
             InitBoard();
             Panel.PanelEnabled = false; 
         }

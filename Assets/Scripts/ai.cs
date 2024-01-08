@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ai
 {
+    public enum AITypes{
+        Rand,
+        NegaMax
+    }
+
+    public static AITypes AIType = AITypes.NegaMax;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,8 +94,13 @@ public class ai
         return 0;  
     }
 
-    public void Move(){   
-        NegaMax.MakeBestMove(3, Figure.figureColorEnum.black); 
+    public void Move(){  
+        if (AIType == AITypes.NegaMax){ 
+            NegaMax.MakeBestMove(3, Figure.figureColorEnum.black);
+        }
+        if (AIType == AITypes.Rand){
+            RandomMove(Figure.figureColorEnum.black);
+        } 
         Landscape.humanTurn = true;
     }
 }
