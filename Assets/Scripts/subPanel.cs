@@ -1,18 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Unity.Collections;
 using UnityEngine;
 
-public class Panel : MonoBehaviour
+public class SubPanel : MonoBehaviour
 {
     public static bool PanelEnabled = false;
     private static float x = 0;
     private static float y = 0;
-    public GameObject PanelUI;
-    public const float buttonWidth = 3;
-    public const float buttonHeight = 0.5f;  
+    public GameObject SubPanelUI;
+    public const float height = 1f;
 
     public struct Pos{
         public float x; 
@@ -22,8 +18,8 @@ public class Panel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PanelUI.transform.localPosition = new Vector3(x, y, 0);
-        var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
+        SubPanelUI.transform.localPosition = new Vector3(x, y, 0);
+        var getCanvasGroup  = SubPanelUI.GetComponent<CanvasGroup>();
         getCanvasGroup.alpha = 0;
     }
 
@@ -43,19 +39,20 @@ public class Panel : MonoBehaviour
     
     void Update()
     {
-       PanelUI.transform.localPosition = new Vector3(x, y, 0);
+       SubPanelUI.transform.localPosition = new Vector3(x, y, 0);
 
         if (Input.GetMouseButtonDown(0)){
-            var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
+            PanelEnabled = false;
+        }
+
+        if (PanelEnabled){
+            var getCanvasGroup  = SubPanelUI.GetComponent<CanvasGroup>();
+            getCanvasGroup.alpha = 1;
+            PanelEnabled = true;
+        }else{
+            var getCanvasGroup  = SubPanelUI.GetComponent<CanvasGroup>();
             getCanvasGroup.alpha = 0;
         }
-         if (Input.GetMouseButtonDown(1)){
-            var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
-            getCanvasGroup.alpha = 1;
-
-            SubPanel.SetPos(x + buttonWidth, y); 
-
-            PanelEnabled = true;
-        }
     }
+
 }

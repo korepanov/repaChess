@@ -57,7 +57,22 @@ public class Landscape : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1)){
             Vector3 pos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * (-1)));
-            Panel.SetPos(pos.x, pos.y);
+            Panel.SetPos(pos.x, pos.y); 
+        }
+
+        if (Panel.PanelEnabled){
+             Vector3 pos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z * (-1)));
+
+             if ((Panel.GetPos().x - Panel.buttonWidth / 2 < pos.x) && (pos.x < Panel.GetPos().x + Panel.buttonWidth / 2) &&
+                (Panel.GetPos().y < pos.y) && (pos.y < Panel.GetPos().y + Panel.buttonHeight)){
+                    SubPanel.PanelEnabled = true;
+                
+             }else{
+                if (!((SubPanel.GetPos().x - Panel.buttonWidth / 2 < pos.x) && (pos.x < SubPanel.GetPos().x + Panel.buttonWidth / 2) &&
+                (SubPanel.GetPos().y - SubPanel.height / 2 < pos.y) && (pos.y < SubPanel.GetPos().y + SubPanel.height / 2))){
+                    SubPanel.PanelEnabled = false; 
+                }
+             }
         }
 
         if (!humanTurn && !Input.GetMouseButtonDown(0)){
