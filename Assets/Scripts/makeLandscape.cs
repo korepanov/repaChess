@@ -6,7 +6,6 @@ using Unity.VisualScripting.FullSerializer;
 using Unity.VisualScripting;
 
 
-
 public class Landscape : MonoBehaviour
 {
     public static bool humanTurn = true;
@@ -53,6 +52,13 @@ public class Landscape : MonoBehaviour
                 selected_y = y;
             }
             
+        } 
+
+        if (!Panel.PanelVisible && !Panel.WasClick && !SubPanel.WasClick){
+            Panel.PanelEnabled = false;
+            Panel.WasClick = false; 
+            SubPanel.WasClick = false; 
+            Debug.Log("message");  
         }
 
         if (Input.GetMouseButtonDown(1)){
@@ -317,31 +323,36 @@ public class Landscape : MonoBehaviour
     }
 
     public void newNegaMaxGame(){
-        ai.AIType = ai.AITypes.NegaMax;
-        newGame();
-    }
-    public void newRandGame(){
-        ai.AIType = ai.AITypes.Rand;
-        newGame();
-    }
-    public void newGame(){
         if (Panel.PanelEnabled) {
-            Destroy(GameObject.Find("-2"));
-            Destroy(GameObject.Find("-1"));
-
-            for (int i = 2; i < 34; i++){
-                Destroy(GameObject.Find(i.ToString()));
-            }
-
-            tile_grid = new Figure[8,8];
-            
-            tileset = null; 
-
-            CreateTileset();
-            CreateTileGroups();
-            InitBoard();
+            ai.AIType = ai.AITypes.NegaMax;
+            newGame();
             Panel.PanelEnabled = false; 
         }
+    }
+    public void newRandGame(){
+        if (Panel.PanelEnabled) {
+            ai.AIType = ai.AITypes.Rand;
+            newGame();
+            Panel.PanelEnabled = false; 
+        }
+    }
+    public void newGame(){
+        
+        Destroy(GameObject.Find("-2"));
+        Destroy(GameObject.Find("-1"));
+
+        for (int i = 2; i < 34; i++){
+            Destroy(GameObject.Find(i.ToString()));
+        }
+
+        tile_grid = new Figure[8,8];
+        
+        tileset = null; 
+
+        CreateTileset();
+        CreateTileGroups();
+        InitBoard();
+        
     }
     public static void debugBoard(){
         string s; 
@@ -418,7 +429,10 @@ public class Landscape : MonoBehaviour
         }
     }
 
+
 }
+
+
 
 
     

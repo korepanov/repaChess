@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using Unity.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems; 
 
 public class Panel : MonoBehaviour
 {
     public static bool PanelEnabled = false;
+    public static bool PanelVisible = false; 
+    public static bool WasClick = false; 
+    public static bool IsCursorHere = false; 
+    public static bool WasClicked = false; 
     private static float x = 0;
     private static float y = 0;
     public GameObject PanelUI;
@@ -48,6 +53,8 @@ public class Panel : MonoBehaviour
         if (Input.GetMouseButtonDown(0)){
             var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
             getCanvasGroup.alpha = 0;
+            PanelVisible = false; 
+
         }
          if (Input.GetMouseButtonDown(1)){
             var getCanvasGroup  = PanelUI.GetComponent<CanvasGroup>();
@@ -55,7 +62,15 @@ public class Panel : MonoBehaviour
 
             SubPanel.SetPos(x + buttonWidth, y); 
 
+            PanelVisible = true; 
             PanelEnabled = true;
         }
     }
+
+    public void WasPanelClick(){
+        if (Input.GetMouseButtonDown(0)){
+            WasClick = true;
+        }
+    }
+    
 }

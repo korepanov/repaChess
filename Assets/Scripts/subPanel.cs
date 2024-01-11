@@ -5,6 +5,7 @@ using UnityEngine;
 public class SubPanel : MonoBehaviour
 {
     public static bool PanelEnabled = false;
+    public static bool WasClick = false; 
     private static float x = 0;
     private static float y = 0;
     public GameObject SubPanelUI;
@@ -55,4 +56,9 @@ public class SubPanel : MonoBehaviour
         }
     }
 
+    public void WasPanelClick(){
+        if (Input.GetMouseButtonDown(0)){
+            WasClick = true;
+        }
+    }
 }
